@@ -5,7 +5,7 @@ if [ "$(id -u)" != 0 ]; then
 	exec sudo $0
 fi
 
-cd /opt/ra1nstorm
+cd /opt/ra1nkvm
 . vmprepare.sh
 . vmconfig.sh
 cd OSX-KVM
@@ -18,7 +18,7 @@ Your CPU model is: $(lscpu | grep "Model name" | cut -d: -f2 | sed -E 's/^[ ]+//
 Please check Intel or AMD's website to see if your CPU supports IOMMU technology.
 "
 
-test -d /opt/ra1nstorm && ls /sys/kernel/iommu_groups/*/* 2>&1 >/dev/null || zenity --error --title "Ra1nKVM" --text "$IOMMUERR" --width 800 --height 480
+test -d /opt/ra1nkvm && ls /sys/kernel/iommu_groups/*/* 2>&1 >/dev/null || zenity --error --title "Ra1nKVM" --text "$IOMMUERR" --width 800 --height 480
 sh scripts/vfio-group.sh $(find /sys/kernel/iommu_groups -iname 0000:$PCI | cut -d/ -f5)
 ./boot-macOS-Catalina.sh
 sh scripts/vfio-ungroup.sh $(find /sys/kernel/iommu_groups -iname 0000:$PCI | cut -d/ -f5)
