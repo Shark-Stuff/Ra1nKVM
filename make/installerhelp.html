@@ -1,25 +1,149 @@
-<h3>Note</h3>
-<p><b style="color:red">NOT need Installing macOS will probably take 1-2 hours. Please be patient during this process and follow the steps below.</b></p>
-<h4 id="installer-steps">Installer Steps</h4>
-<ul>
-<li><p>After booting, the initial language selection should show up.
-<img src="https://cloud.githubusercontent.com/assets/731252/17645877/5136b1ac-61b2-11e6-8d90-29f5cc11ae01.png" alt="screenshot_01"></p>
-</li>
-<li><p>After selecting the language, fire-up the Disk Utility ...
-<img src="https://cloud.githubusercontent.com/assets/731252/17645881/513b6918-61b2-11e6-91f2-026d953cbe0b.png" alt="screenshot_02"></p>
-</li>
-<li><p>... and initialize the new harddisk. If this step fails and the menu bar
-shows &quot;Language Chooser&quot; then see the Debugging section below.</p>
-</li>
-</ul>
-<p><img src="https://cloud.githubusercontent.com/assets/731252/17645878/51373d48-61b2-11e6-8740-69c86bf92d31.png" alt="screenshot_03">
-<img src="https://cloud.githubusercontent.com/assets/731252/17645879/513ae704-61b2-11e6-9a54-109c37132783.png" alt="screenshot_04"></p>
-<ul>
-<li><p>Now, you can continue with the installation as usual
-<img src="https://cloud.githubusercontent.com/assets/731252/17645880/513b2c3c-61b2-11e6-889c-3e4f5a0612ca.png" alt="screenshot_06"></p>
-</li>
-<li><p>When finished, the VM will reboot automatically and the first time setup continues as usual.
-<img src="https://cloud.githubusercontent.com/assets/731252/17645882/51517a50-61b2-11e6-8bb5-70c810d80b2b.png" alt="screenshot_07"></p>
-</li>
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ra1nKVM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+      @import url("https://fonts.googleapis.com/css?family=Share+Tech+Mono|Montserrat:700");
 
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    box-sizing: border-box;
+    color: inherit;
+}
+
+body {
+    background-image: url('https://user-images.githubusercontent.com/5210221/72232549-5ddf6500-3587-11ea-9538-adb2ca9d55aa.jpg');
+		background-repeat: no-repeat;
+
+}
+
+h1 {
+    font-size: 45vw;
+    text-align: center;
+    position: fixed;
+    width: 100vw;
+    z-index: 1;
+    color: #ffffff26;
+    text-shadow: 0 0 50px rgba(0, 0, 0, 0.07);
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    font-family: "Montserrat", monospace;
+}
+
+div {
+    background: rgba(0, 0, 0, 0);
+    width: 70vw;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    margin: 0 auto;
+    padding: 30px 30px 10px;
+    box-shadow: 0 0 150px -20px rgba(0, 0, 0, 0.5);
+    z-index: 3;
+}
+
+P {
+    font-family: "Share Tech Mono", monospace;
+    color: #f5f5f5;
+    margin: 0 0 20px;
+    font-size: 17px;
+    line-height: 1.2;
+}
+
+span {
+    color: #f0c674;
+}
+
+i {
+    color: #8abeb7;
+}
+
+div a {
+    text-decoration: none;
+}
+
+b {
+    color: #81a2be;
+}
+
+a.avatar {
+    position: fixed;
+    bottom: 30px;
+    right: -200px;
+    -webkit-animation: slide 0.5s 0.5s forwards;
+            animation: slide 0.5s 0.5s forwards;
+    display: block;
+    z-index: 4
+}
+
+a.avatar img {
+    border-radius: 100%;
+    width: 44px;
+    border: 2px solid white;
+}
+
+@-webkit-keyframes slide {
+    from {
+        right: -100px;
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+        opacity: 0;
+    }
+    to {
+        right: 15px;
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes slide {
+    from {
+        right: -100px;
+        -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+        opacity: 0;
+    }
+    to {
+        right: 15px;
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+        opacity: 1;
+    }
+}
+
+    </style>
+
+</head>
+<body translate="no">
+
+<a class="avatar" href="https://twitter.com/sharklatan" title="If you liked follow me?"><img src="https://pbs.twimg.com/profile_images/1050889706186010626/UannDqqq_400x400.jpg" /></a>
+<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-de7e2ef6bfefd24b79a3f68b414b87b8db5b08439cac3f1012092b2290c719cd.js"></script>
+<script id="rendered-js">
+      var str = document.getElementsByTagName('div')[0].innerHTML.toString();
+var i = 0;
+document.getElementsByTagName('div')[0].innerHTML = "";
+
+setTimeout(function () {
+  var se = setInterval(function () {
+    i++;
+    document.getElementsByTagName('div')[0].innerHTML = str.slice(0, i) + "|";
+    if (i == str.length) {
+      clearInterval(se);
+      document.getElementsByTagName('div')[0].innerHTML = str;
+    }
+  }, 10);
+}, 0);
+      //# sourceURL=pen.js
+    </script>
+</body>
+</html>
