@@ -103,8 +103,8 @@ function wiz_osxkvm_getdmg(\
 	h = zenity_progress("Downloading components... (this may take a long time)...", 0, gzenity " --ok-label 'Next' --cancel-label 'Back'")
 	print "20" | h
 	print "# Downloading macOS installation image (this WILL take a long time)..." | h
-	if (system("test -f $HOME/balenaEtcher-x64.AppImage") == 0) {
-	} else if (system("echo " NUM " | (cd $HOME/ && wget -nv -c --show-progress https://archive.org/download/ra1nkvm/Ra1nKVM.dmg && wget -nv -c --show-progress https://archive.org/download/ra1nkvm/balenaEtcher-x64.AppImage && chmod 755 $HOME/Ra1nKVM.dmg && chmod 755 $HOME/balenaEtcher-x64.AppImage && $HOME/balenaEtcher-x64.AppImage)")) {
+	if (system("test -f /opt/ra1nkvm/OSX-KVM/ra1nkvm.dmg") == 0) {
+	} else if (system("echo " NUM " | (cd /opt/ra1nkvm/OSX-KVM && wget -nv -c --show-progress https://archive.org/download/ra1nkvm/ra1nkvm.dmg && dmg2img ra1nkvm.dmg BaseSystem.img)")) {
 		print "# Failed to download macOS dmg" | h
 		failed = 1
 	}
@@ -121,7 +121,7 @@ function wiz_osxkvm_getdmg(\
 
 function wiz_bootinst(\
 	h,status,failed) {
-	h = zenity_progress("Insert the USB KVM & Booting macOS Setup...", 0, gzenity " --ok-label 'See Instructions' --cancel-label 'Back'")
+	h = zenity_progress("Booting Ra1Ra1nKVM...", 0, gzenity " --ok-label 'See Instructions' --cancel-label 'Back'")
 	print "40" | h
 	failed = system("(cp vmprepare.txt /opt/ra1nkvm/vmprepare.sh && sh /opt/ra1nkvm/vmprepare.sh && cd /opt/ra1nkvm/OSX-KVM && ./boot-macOS-Catalina.sh &)")
 	if (!failed) print "# Please click \"See Instructions\" to see the steps you need to take." | h
@@ -130,7 +130,7 @@ function wiz_bootinst(\
 		wizard_next()
 	} else {
 		if (failed)
-			zenity_alert("error", "Ra1nKVM failed to initialize the macOS installer")
+			zenity_alert("error", "Ra1nKVM failed to initialize the macOS")
 		exit(1)
 	}
 	close(h)
@@ -184,13 +184,13 @@ function wiz_configiommu(\
 	print "90" | h
 	print "PCI=" pciid > "/opt/ra1nkvm/vmconfig.sh"
 	print "Creating shortcuts..." | h
-	system("cp 'BootVM.sh' $HOME && cp 'BootVM.sh' $HOME/Desktop &&  cp 'BootVM.sh' $HOME/Escritorio && chmod 755 $HOME/BootVM.sh && chmod 755 $HOME/Desktop/BootVM.sh  && chmod 755 $HOME/Escritorio/BootVM.sh")
+	system("chmod 755 BootVM.sh && cp 'BootVM.sh' $HOME && chmod 755 $HOME/BootVM.sh && cp 'BootVM.sh' $HOME/Desktop && cp 'BootVM.sh' $HOME/Escritorio")
 	status = close(h)
 	if (status == 0 && !failed) {
 		wizard_next()
 	} else {
 		if (failed)
-			zenity_alert("error", "ra1nstorm was unable to configure PCI passthrough for your USB controller")
+			zenity_alert("error", "Ra1nKVM was unable to configure PCI passthrough for your USB controller")
 		exit(1)
 	}
 	close(h)
@@ -224,7 +224,7 @@ function uninstall(\
 	system("rm -rf /opt/ra1nkvm")
 	print "90" | h
 	system("cp /etc/default/grub.bak /etc/default/grub; cp /etc/modules.bak /etc/modules")
-	print "# ra1nstorm has been successfully removed." | h
+	print "# Ra1nKVM has been successfully removed." | h
 	close(h)
 	if (zenity_alert("question", "Ra1nKVM has been removed. You will need to reboot for the changes to take effect.\nReboot now?") == 0) {
 		system("reboot")
@@ -236,14 +236,14 @@ function main_menu(\
 	optlist = "Install;Save System Information Log"
 	if (system("test -d /opt/ra1nkvm") == 0)
 		optlist = optlist ";Repair USB/VFIO Config;Boot VM;Uninstall"
-	opt = zenity_radiolist(optlist, "ra1nstorm "RA1NVER": choose an action")
+	opt = zenity_radiolist(optlist, "Ra1nKVM "RA1NVER": choose an action")
 	if (opt == 1) {
 		init_wizard(0)
 	} else if (opt == 2) {
-		system("(echo RA1NSTORM-"RA1NVER"; uname -a; uptime; df -h; free -m; ls -lR /opt/ra1nkvm; bash /opt/ra1nkvm/OSX-KVM/scripts/lsgroup.sh; dmesg; cat /tmp/ra1nkvm.log; lscpu; lspci -vtnn; lsusb; lsusb -t; lspci -v; lsusb -v) 2>&1 > /tmp/SystemLog.txt && cp /tmp/SystemLog.txt $HOME && chmod 666 $HOME/SystemLog.txt && chmod 666 /tmp/SystemLog.txt")
+		system("(echo Ra1nKVM-"RA1NVER"; uname -a; uptime; df -h; free -m; ls -lR /opt/ra1nkvm; bash /opt/ra1nkvm/OSX-KVM/scripts/lsgroup.sh; dmesg; cat /tmp/ra1nkvm.log; lscpu; lspci -vtnn; lsusb; lsusb -t; lspci -v; lsusb -v) 2>&1 > /tmp/SystemLog.txt && cp /tmp/SystemLog.txt $HOME && chmod 666 $HOME/SystemLog.txt && chmod 666 /tmp/SystemLog.txt")
 		zenity_alert("info", "A log file (SystemLog.txt) has been saved on your desktop and in the /tmp folder.\nPlease send it to a ra1n genius for help.")
-	} else if (opt == 3) {
 		init_wizard(7)
+		} else if (opt == 3) {
 	} else if (opt == 4) {
 		system("bash $HOME/BootVM.sh")
 	} else if (opt == 5) {
@@ -254,9 +254,9 @@ function main_menu(\
 }
 
 BEGIN {
-	RA1NVER = "Beta"
-	gtitle = "Ra1nKVM "
-	gzenity = "--width 800 --height 480"
+	RA1NVER = "Beta "
+	gtitle = "Ra1nKVM By @sharklatan"
+	gzenity = "--width 820 --height 545"
 	split("python qemu uml-utilities virt-manager dmg2img git wget libguestfs-tools", REQPKGS, " ")
 	wizard[0] = "wiz_intro"
 	wizard[1] = "wiz_checksys"
