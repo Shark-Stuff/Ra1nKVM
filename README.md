@@ -1,10 +1,13 @@
 # Ra1nKVM
+
+![Ra1nKVM Logo](logo.jpg)
+
 ## INFO
 *  1 Used the code from ra1nstorm helper prepares an environment adequate for running checkra1n and exploiting your iOS device in a macOS virtual machine <b>with some changes to skip the installation and reduce the necessary storage.</b> 
 
 * 2 Download a pre-modified DMG image based on MacOSx high sierra that contains checkra1n <b>(not the same as ra1nusb).</b>
 
-* 3 The DMG is transferred in USB (minimum 4GB) using balena etcher<br> 
+* ~~3 The DMG is transferred in USB (minimum 4GB) using balena etcher~~<br> 
 The image has been modified from the original by me [Shark](https://twitter.com/sharklatan) 
 
 ## Building
