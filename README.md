@@ -1,6 +1,6 @@
 # Ra1nKVM
 
-![Ra1nKVM Logo](logo.jpg)
+![ra1nkvm](https://user-images.githubusercontent.com/5210221/72710207-314dbf00-3b2c-11ea-9e92-19d0f54f9041.jpg)
 
 ## INFO
 *  1 Used the code from ra1nstorm helper prepares an environment adequate for running checkra1n and exploiting your iOS device in a macOS virtual machine <b>with some changes to skip the installation and reduce the necessary storage.</b> 
