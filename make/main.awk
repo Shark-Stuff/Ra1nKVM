@@ -184,7 +184,7 @@ function wiz_configiommu(\
 	print "90" | h
 	print "PCI=" pciid > "/opt/ra1nkvm/vmconfig.sh"
 	print "Creating shortcuts..." | h
-	system("chmod 755 BootVM.sh && cp 'BootVM.sh' $HOME && chmod 755 $HOME/BootVM.sh && cp 'BootVM.sh' $HOME/Desktop && cp 'BootVM.sh' $HOME/Escritorio")
+	system("chmod 755 BootVM.sh && cp 'BootVM.sh' $HOME && chmod 755 $HOME/BootVM.sh && cp 'BootVM.sh' $HOME/Desktop && cp 'BootVM.sh' $HOME/Escritorio && chmod 755 $HOME/Desktop/BootVM.sh && chmod 755 $HOME/Escritorio/BootVM.sh")
 	status = close(h)
 	if (status == 0 && !failed) {
 		wizard_next()
