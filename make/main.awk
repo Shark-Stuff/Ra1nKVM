@@ -28,12 +28,12 @@ function wiz_checksys(\
 	if (!match(execforline("id -u"), /^0/)) {
 		print "# Error: you need to run Ra1nKVM as root" | h
 		failed = 1
-	} else if (execforline("df --output=avail $HOME | tail -n1") < (10 * 1024 * 1024) &&
-		system("test -d /opt/ra1nkvm/OSX-KVM") != 0) { # 10GiB
+	} else if (execforline("df --output=avail $HOME | tail -n1") < (5 * 1024 * 1024) &&
+		system("test -d /opt/ra1nkvm/OSX-KVM") != 0) { # 5GiB
 		print "# Error: at least 10G of disk space is required" | h
 		failed = 1
-	} else if (execforline("cat /proc/meminfo | grep MemTotal | tr -d '[A-Za-z: ]'") < (3 * 1000 *  1000)) { # 4GiB. This is probably a bad idea.
-		print "# Error: at least 4G of RAM is required" | h
+	} else if (execforline("cat /proc/meminfo | grep MemTotal | tr -d '[A-Za-z: ]'") < (2 * 1000 *  1000)) { # 4GiB. This is probably a bad idea.
+		print "# Error: at least 2G of RAM is required" | h
 		failed = 1
 	} else if (system("test -e /dev/kvm") != 0) {
 		print "# Error: your CPU does not support hardware virtualization (or it is not enabled in the BIOS)" | h
